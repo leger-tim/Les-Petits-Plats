@@ -1,0 +1,69 @@
+body {
+    width: 100%;
+    margin: 0;
+}
+
+.image-container {
+    position: relative;
+    width: taille_de_votre_image; /* Par exemple : 500px */
+    height: taille_de_votre_image; /* Par exemple : 300px */
+}
+
+.main-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.logo {
+    position: absolute;
+    top: 70px; /* Pour le placer en haut */
+    left: 70px; /* Pour le placer à gauche */
+}
+
+.group {
+    position: absolute;
+    top: 75px; /* Pour le placer en haut */
+    left: 255px; /* Pour le placer à gauche */
+    
+}
+
+.title {
+    position: absolute;
+    width: 720px;
+    top: 330px; /* Centrage vertical */
+    left: 50%; /* Centrage horizontal */
+    transform: translate(-50%, -50%); /* Ajuste la position pour un centrage parfait */
+    z-index: 1; /* Place le h1 au-dessus des autres éléments */
+    color: #FFD15B;
+    text-align: center;
+    font-family: Anton;
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.search-container {
+
+}
+
+#searchBar {
+    position: absolute;
+    width: 954px;
+    height: 72px;
+    top: 500px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-shrink: 0;
+    border-radius: 11px;
+    background: #FFF;
+}
+
+.search-icon {
+    background-color: red; 
+    
+
+    width: 50px;
+    height: 50px; 
+}
