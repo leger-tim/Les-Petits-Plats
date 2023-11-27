@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Petits Plats
+    </title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <div class="image-container">
+        <img src="assets/lampos-aritonang-24gR_9lCdes-unsplash 1.jpg" class="main-image">
+        <img src="assets/Les petits plats.svg" class="logo">
+        <img src="assets/Group 3.png" class="group">
+        <h1 class="title">CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES</h1>
+        <div class="search-container">
+            <input type="search" id="searchBar" placeholder="Rechercher une recette, un ingrédient, ...">
+            <div class="search-icon"><img id="search-image" src="assets/Group 4.png"></div>
+        </div>
+    </div>
+    <div id="dropdowns-container">
+      <div class="dropdown">
+          <button class="dropbtn">Ingrédients</button>
+          <div class="dropdown-content" data-dropdown="ingredients">
+              <input class="input-dropdowns" type="text" placeholder="Search..">
+              <!-- Ingredients will be populated here -->
+          </div>
+      </div>
+  
+      <div class="dropdown">
+          <button class="dropbtn">Appareils</button>
+          <div class="dropdown-content" data-dropdown="appliances">
+              <input class="input-dropdowns" type="text" placeholder="Search..">
+              <!-- Appliances will be populated here -->
+          </div>
+      </div>
+  
+      <div class="dropdown">
+          <button class="dropbtn">Ustensiles</button>
+          <div class="dropdown-content" data-dropdown="ustensils">
+              <input class="input-dropdowns" type="text" placeholder="Search..">
+              <!-- Utensils will be populated here -->
+          </div>
+      </div>
+      <div id="recipes-count">Nombre de recettes: 0</div>
+
+  </div>
+  <div id="tags-container"></div>
+
+  
+    <div class="content-container">
+    </div>
+    <script src="js/index2.js" defer></script>
+    <div class="message"></div>
+
+</body>
+</html>

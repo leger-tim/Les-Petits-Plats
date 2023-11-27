@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Les Petits Plats
-    </title>
+    <title>Les Petits Plats</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,19 +20,46 @@
             <div class="search-icon"><img id="search-image" src="assets/Group 4.png"></div>
         </div>
     </div>
-    <div class="content-container">
-        <div class="message"></div>
-        <div class="tags"></div>
-        <div class="card">
-            <img src="https://via.placeholder.com/150" alt="Image de profil" class="card-img">
-            <div class="card-content">
-                <h2>Nom Prénom</h2>
-                <p>Description ou profession</p>
+    <div class="tags"></div>
+    <div class="dropdowns-container">
+        <!-- Dropdown for ingredients -->
+        <div class="dropdown" id="dropdown-ingredients">
+            Ingrédients
+            <div class="dropdown-content">
+                <input type="text" placeholder="Rechercher un ingrédient...">
+                <ul id="list-ingredients">
+                    <!-- Ingredients will be inserted here -->
+                </ul>
             </div>
         </div>
 
+        <!-- Dropdown for appliances -->
+        <div class="dropdown" id="dropdown-appareils">
+            Appareils
+            <div class="dropdown-content">
+                <input type="text" placeholder="Rechercher un appareil...">
+                <ul id="list-appareils">
+                    <!-- Appliances will be inserted here -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Dropdown for utensils -->
+        <div class="dropdown" id="dropdown-ustensiles">
+            Ustensiles
+            <div class="dropdown-content">
+                <input type="text" placeholder="Rechercher un ustensile...">
+                <ul id="list-ustensiles">
+                    <!-- Utensils will be inserted here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="message"></div>
+        <!-- Recipe cards will be generated here -->
     </div>
     <script src="js/index.js" defer></script>
-
 </body>
 </html>
