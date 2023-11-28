@@ -16,7 +16,7 @@ function generateCards(filteredRecipes) {
         // Generate the list of ingredients
         let ingredientsList = '<ul class="ingredients-list">';
         recipe.ingredients.forEach(ingredient => {
-            ingredientsList += `<li>${ingredient.ingredient}: ${ingredient.quantity || ''} ${ingredient.unit || ''}</li>`;
+            ingredientsList += `<li><span class="ingredient-name">${ingredient.ingredient}</span><br> <span class="ingredient-quantity">${ingredient.quantity || ''}</span> <span class="ingredient-unit">${ingredient.unit || ''}</span></li>`;
         });
         ingredientsList += '</ul>';
 
@@ -25,10 +25,10 @@ function generateCards(filteredRecipes) {
                 <img src="images/${recipe.image}" alt="${recipe.name}" class="card-img" />
                 <div class="structure-card">
                 <h3 class="card-title">${recipe.name}</h3>
-                <p class="card-description"><p class="recette">RECETTE</p>${recipe.description}</p>
-                <h4><p class="ingredients">INGREDIENTS</p></h4>
-                ${ingredientsList}
-                <p class="card-time">${recipe.time}</p>
+                <p class="card-description"><p class="recette">RECETTE</p><p class="paragraph">${recipe.description}</p></p>
+                <h4 class="ingredients-h4"><p class="ingredients">INGREDIENTS</p></h4>
+                <div class="ingredients-list-container">${ingredientsList}</div>
+                <p class="card-time">${recipe.time + "min"}</p>
                 </div>
             </div>
         `;
@@ -51,44 +51,85 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error('Error loading the recipes:', error));
 
-    // Function to populate dropdowns
-    function populateDropdowns(recipes) {
+    // // Function to populate dropdowns
+    // function populateDropdowns(recipes) {
+    //     const ingredientsSet = new Set();
+    //     const appliancesSet = new Set();
+    //     const utensilsSet = new Set();
+
+    //     recipes.forEach(recipe => {
+    //         recipe.ingredients.forEach(item => ingredientsSet.add(item.ingredient));
+    //         appliancesSet.add(recipe.appliance);
+    //         recipe.ustensils.forEach(item => utensilsSet.add(item));
+    //     });
+
+    //     const ingredients = [...ingredientsSet];
+    //     const appliances = [...appliancesSet];
+    //     const utensils = [...utensilsSet];
+
+    //     const addItemsToDropdown = (selector, items) => {
+    //         const dropdown = document.querySelector(selector);
+    //         items.forEach(item => {
+    //             const element = document.createElement('button');
+    //             element.type = 'button';
+    //             element.className = 'dropdown-item'; // Add class for styling
+    //             element.textContent = item;
+    //             element.addEventListener('click', function() {
+    //                 addTag(item); // Ajouter un tag au clic sur un élément
+    //                 filterRecipesByTags(); // Filtrer les recettes en fonction des tags sélectionnés
+    //                 console.log(item + ' selected');
+    //             });
+    //             dropdown.appendChild(element);
+    //         });
+    //     };
+
+    //     // Clear existing dropdown items before adding new ones
+    // document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+    //     dropdown.innerHTML = '';
+    // });
+
+    //     // Populate dropdowns
+    //     addItemsToDropdown('.dropdown-content[data-dropdown="ingredients"]', ingredients);
+    //     addItemsToDropdown('.dropdown-content[data-dropdown="appliances"]', appliances);
+    //     addItemsToDropdown('.dropdown-content[data-dropdown="ustensils"]', utensils);
+    // }
+    function populateDropdowns(filteredRecipes) {
+        // Sets to hold the unique items
         const ingredientsSet = new Set();
         const appliancesSet = new Set();
         const utensilsSet = new Set();
-
-        recipes.forEach(recipe => {
+    
+        // Populate the Sets with items from the filtered recipes
+        filteredRecipes.forEach(recipe => {
             recipe.ingredients.forEach(item => ingredientsSet.add(item.ingredient));
             appliancesSet.add(recipe.appliance);
             recipe.ustensils.forEach(item => utensilsSet.add(item));
         });
-
-        const ingredients = [...ingredientsSet];
-        const appliances = [...appliancesSet];
-        const utensils = [...utensilsSet];
-
+    
+        // Function to add items to a specific dropdown
         const addItemsToDropdown = (selector, items) => {
             const dropdown = document.querySelector(selector);
+            dropdown.innerHTML = ''; // Clear the dropdown before adding new items
             items.forEach(item => {
                 const element = document.createElement('button');
                 element.type = 'button';
-                element.className = 'dropdown-item'; // Add class for styling
+                element.className = 'dropdown-item';
                 element.textContent = item;
                 element.addEventListener('click', function() {
-                    addTag(item); // Ajouter un tag au clic sur un élément
-                    filterRecipesByTags(); // Filtrer les recettes en fonction des tags sélectionnés
+                    addTag(item);
+                    filterRecipesByTags(); // This will need to filter based on the new tags
                     console.log(item + ' selected');
                 });
                 dropdown.appendChild(element);
             });
         };
-
-        // Populate dropdowns
-        addItemsToDropdown('.dropdown-content[data-dropdown="ingredients"]', ingredients);
-        addItemsToDropdown('.dropdown-content[data-dropdown="appliances"]', appliances);
-        addItemsToDropdown('.dropdown-content[data-dropdown="ustensils"]', utensils);
+    
+        // Convert each Set to an array and populate the dropdowns
+        addItemsToDropdown('.dropdown-content[data-dropdown="ingredients"]', Array.from(ingredientsSet));
+        addItemsToDropdown('.dropdown-content[data-dropdown="appliances"]', Array.from(appliancesSet));
+        addItemsToDropdown('.dropdown-content[data-dropdown="ustensils"]', Array.from(utensilsSet));
     }
-
+    
     // Search functionality
     const searchBar = document.getElementById('searchBar');
     searchBar.addEventListener('input', function() {
@@ -109,6 +150,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         
         if (recherche.length <3) {
+            populateDropdowns(recipes); // Repopulate dropdowns with all items
+
             generateCards(recipes);
             messageElement.innerHTML = ''; // Clear any existing message when the input is cleared.
             return;
@@ -139,6 +182,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 messageElement.innerHTML = `Aucune recette ne contient '${recherche}' vous pouvez chercher «
                 tarte aux pommes », « poisson », etc.`;
             } else {
+                populateDropdowns(resultats); // Update dropdowns with items from filtered recipes
+                generateCards(resultats); // Update the UI with search results
+
                 messageElement.innerHTML = ''; // Clear the message when there are results
             }
             if (correspond) {
@@ -200,6 +246,8 @@ function filterRecipesByTags() {
         );
     });
     generateCards(filteredRecipes); // Générer les cartes pour les recettes filtrées
+    // Update dropdowns with items from filtered recipes
+    populateDropdowns(filteredRecipes);
 }
 
 function addTag(tagName) {

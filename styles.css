@@ -99,16 +99,27 @@ body {
 
 /* Dropdowns */
 
+.big-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 20px 0px 20px;
+    background: #EDEDED;
+}
+
 #dropdowns-container {
     background: #EDEDED;
     width: 100%;
-    height: 200px;
+    height: 90px;
     display: flex;
     flex-direction: row;
 }
 
 .recette-count {
     font-family: Anton;
+    background: #EDEDED;
+    margin-right: 50px;
+    width: 100px;
 }
 
 /* Style the dropdown button */
@@ -130,7 +141,7 @@ body {
     position: relative;
     display: inline-block;
     height: auto;
-    border-radius: 11px;
+    /* border-radius: 11px; */
     margin-right: 50px;
   }
   
@@ -138,14 +149,24 @@ body {
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: white;
     width: 200px;
     z-index: 1;
+    height: 300px;
+    overflow: auto;
+    top: 35px;
+    border-radius: 0px 0px 11px 11px;
+
+  }
+
+  .dropdown-content::-webkit-scrollbar {
+    display: none;
   }
   
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {
     display: block;
+    border-radius: ;
   }
   
   /* Style the dropdown links */
@@ -160,13 +181,32 @@ body {
   .dropdown-content input[type="text"] {
     padding: 10px;
     margin: 10px;
-    border: none;
-    border-bottom: 1px solid #ccc;
+    border: 1px solid var(--Light-Grey, #C6C6C6);
     width: 80%; /* Slightly less than container for aesthetics */
   }
+
+  .dropdown-item {
+    background: white;
+    width: 100%;
+    border: none;
+    text-align: left;
+    padding-left: 20px;
+    font-size: 14px;
+    font-family: Manrope;
+    padding-bottom: 13px;
+    padding-top: 10px;
+  }
   
+  .dropdown-item:hover {
+    background: #FFD15B;
+    
+  }
 
 /* Cards */
+
+.recette-card {
+    position: relative;
+}
 .structure-card {
     margin-left: 20px;
 }
@@ -175,10 +215,14 @@ body {
     width: 380px;
     height: 731px;
     border-radius: 21px;
-    overflow: hidden;
+    overflow: auto;
     background-color: #fff;
     margin: 20px;
 }
+
+.card::-webkit-scrollbar {
+    display: none;
+  }
 
 .card-img {
     width: 100%;
@@ -209,14 +253,53 @@ body {
 
 .card-description {
     background-color: red;
+    font-family: Manrope;
 }
 
-.card-ingredients {
-    background-color: blue;
+.paragraph {
+    font-family: Manrope;
+}
+
+.ingredients-list-container {
+    width: 100%;
+    height: 165px;
+    display: flex;
+    flex-direction: row;
+}
+
+.ingredients-list {
+    font-family: Manrope;
+    
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    columns: 2;
+    column-gap: 50px;
+}
+
+.ingredients-list li {
+    margin-bottom: 10px;
+}
+
+.ingredient-name {
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .card-time {
     background-color: #FFD15B;
+    position: absolute;
+    bottom: 685px;
+    left: 320px;
+    border-radius: 14px;
+    width: 65px;
+    height: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-family: Manrope;
 }
 
 .recette {
@@ -226,15 +309,24 @@ body {
     font-family: Manrope;
 }
 
+.ingredients-h4 {
+    margin: 20px 0px 0px 0px;
+}
+
 .ingredients {
     color: #7A7A7A;
     font-size: 12px;
     font-weight: 700;
     font-family: Manrope;
+    margin: 0;
 }
 
-.ingredients-list {
-    list-style-type: none;
+
+
+.ingredient-quantity,
+.ingredient-unit {
+    color:#7A7A7A;
+    font-weight: 400;
 }
 
 /*  Tags */
@@ -245,13 +337,42 @@ body {
     flex-direction: row;
 }
 .tag {
-    width: 200px;
     height: 50px;
     background-color: #FFD15B;
     border-radius: 11px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-left: 10px;
+    justify-content: space-between;
+    margin-left: 20px;
     flex-wrap: wrap;
+    padding-left: 20px;
+    font-family: Manrope;
+}
+
+.tag-close-btn {
+    display: inline-block; /* Allows the use of width and height */
+    width: 50px;
+    height: 50px;
+    line-height: 10px; /* Helps vertically center the '×' character */
+    text-align: right; /* Centers the '×' character horizontally */
+    font-size: 30px; /* Adjust this value to make the '×' character bigger */
+    cursor: pointer; /* Indicates the element is clickable */
+    overflow: hidden;
+    font-weight: bold;
+    align-items: center;
+    display: flex;
+    margin-left: 10px;
+}
+
+/* Message */
+
+.message {
+    width: 100%;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Manrope;
+    font-size: 30px;
+    background-color: #EDEDED;
 }
