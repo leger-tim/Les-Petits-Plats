@@ -107,23 +107,72 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     
         // Function to add items to a specific dropdown
-        const addItemsToDropdown = (selector, items) => {
-            const dropdown = document.querySelector(selector);
-            dropdown.innerHTML = ''; // Clear the dropdown before adding new items
-            items.forEach(item => {
-                const element = document.createElement('button');
-                element.type = 'button';
-                element.className = 'dropdown-item';
-                element.textContent = item;
-                element.addEventListener('click', function() {
-                    addTag(item);
-                    filterRecipesByTags(); // This will need to filter based on the new tags
-                    console.log(item + ' selected');
-                });
-                dropdown.appendChild(element);
-            });
-        };
+        // const addItemsToDropdown = (selector, items) => {
+        //     const dropdown = document.querySelector(selector);
+        //     dropdown.innerHTML = ''; // Clear the dropdown before adding new items
+        //     items.forEach(item => {
+        //         const element = document.createElement('button');
+        //         element.type = 'button';
+        //         element.className = 'dropdown-item';
+        //         element.textContent = item;
+        //         element.addEventListener('click', function() {
+        //             addTag(item);
+        //             filterRecipesByTags(); // This will need to filter based on the new tags
+        //             console.log(item + ' selected');
+        //         });
+        //         dropdown.appendChild(element);
+        //     });
+        // };
+        
+        // Function to add items to a specific dropdown
+        // const addItemsToDropdown = (selector, items) => {
+        //     const dropdown = document.querySelector(selector);
+        //     // Get the existing search input element
+        //     const searchInput = dropdown.querySelector('.input-dropdowns');
+            
+        //     // Clear previous items, preserving the search input
+        //     while (dropdown.firstChild && dropdown.firstChild !== searchInput) {
+        //         dropdown.removeChild(dropdown.firstChild);
+        //     }
+
+        //     // Append new items after the search input
+        //     items.forEach(item => {
+        //         const element = document.createElement('button');
+        //         element.type = 'button';
+        //         element.className = 'dropdown-item';
+        //         element.textContent = item;
+        //         element.addEventListener('click', function() {
+        //             addTag(item);
+        //             filterRecipesByTags(); // This will need to filter based on the new tags
+        //             console.log(item + ' selected');
+        //         });
+        //         dropdown.appendChild(element);
+        //     });
+        // };
+
+        // Function to add items to a specific dropdown, without removing the search bar
+const addItemsToDropdown = (selector, items) => {
+    const dropdown = document.querySelector(selector);
+    const existingItems = dropdown.querySelectorAll('.dropdown-item');
     
+    // Remove all existing items except for the search bar
+    existingItems.forEach(item => item.remove());
+
+    // Append new items
+    items.forEach(item => {
+        const element = document.createElement('button');
+        element.type = 'button';
+        element.className = 'dropdown-item';
+        element.textContent = item;
+        element.addEventListener('click', function() {
+            addTag(item);
+            filterRecipesByTags(); // Filter recipes based on the new tags
+            console.log(item + ' selected');
+        });
+        dropdown.appendChild(element);
+    });
+};
+
         // Convert each Set to an array and populate the dropdowns
         addItemsToDropdown('.dropdown-content[data-dropdown="ingredients"]', Array.from(ingredientsSet));
         addItemsToDropdown('.dropdown-content[data-dropdown="appliances"]', Array.from(appliancesSet));
@@ -233,6 +282,29 @@ document.addEventListener("DOMContentLoaded", function() {
             closeAllDropdowns();
         }
     });
+
+    // Function to filter dropdown items based on search input
+function filterDropdownItems(event) {
+    const input = event.target;
+    const filter = input.value.toLowerCase();
+    const dropdown = input.closest('.dropdown-content');
+    const items = dropdown.querySelectorAll('.dropdown-item');
+
+    items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(filter)) {
+            item.style.display = ""; // Show item
+        } else {
+            item.style.display = "none"; // Hide item
+        }
+    });
+}
+
+// Attach event listeners to all dropdown search inputs
+document.querySelectorAll('.input-dropdowns').forEach(input => {
+    input.addEventListener('keyup', filterDropdownItems);
+});
+
 
     
 
