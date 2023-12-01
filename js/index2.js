@@ -110,60 +110,32 @@ const addItemsToDropdown = (selector, items) => {
 
 
     function chercherRecettes(champRecherche) {
-        
-        let resultats = [];
         let recherche = champRecherche.trim();
         const messageElement = document.querySelector('.message');
-
-        
-        if (recherche.length <3) {
-            populateDropdowns(recipes); // Repopulate dropdowns with all items
-
+    
+        // Clear any existing message when the input is cleared or too short
+        if (recherche.length < 3) {
+            populateDropdowns(recipes); 
             generateCards(recipes);
-            messageElement.innerHTML = ''; // Clear any existing message when the input is cleared.
+            messageElement.innerHTML = ''; 
             return;
         }
     
-        for (let i = 0; i < recipes.length; i++) {
-            let correspond = false;
+        // Filtre les recettes en fonction de la recherche
+        let resultats = recipes.filter(recette =>
+            correspondARecherche(recette.name, recherche) ||
+            correspondARecherche(recette.description, recherche) ||
+            recette.ingredients.some(ingredient => correspondARecherche(ingredient.ingredient, recherche))
+        );
     
-            // Recherche dans le nom
-            if (correspondARecherche(recipes[i].name, recherche)) {
-                correspond = true;
-            }
-    
-            // Recherche dans la description
-            if (!correspond && correspondARecherche(recipes[i].description, recherche)) {
-                correspond = true;
-            }
-    
-            // Recherche dans les ingrédients
-            for (let j = 0; j < recipes[i].ingredients.length; j++) {
-                if (correspondARecherche(recipes[i].ingredients[j].ingredient, recherche)) {
-                    correspond = true;
-                    break;
-                }
-            }
-            // Display message if no results found
-            if (resultats.length === 0) {
-                messageElement.innerHTML = `Aucune recette ne contient '${recherche}' vous pouvez chercher «
-                tarte aux pommes », « poisson », etc.`;
-            } else {
-                populateDropdowns(resultats); // Update dropdowns with items from filtered recipes
-                generateCards(resultats); // Update the UI with search results
-
-                messageElement.innerHTML = ''; // Clear the message when there are results
-            }
-            if (correspond) {
-                resultats.push(recipes[i]);
-            }
-            
+        // Met à jour l'interface utilisateur en fonction des résultats
+        if (resultats.length === 0) {
+            messageElement.innerHTML = `Aucune recette ne contient '${recherche}' vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+        } else {
+            populateDropdowns(resultats);
+            generateCards(resultats);
+            messageElement.innerHTML = ''; // Clear the message when there are results
         }
-    
-        // Actualise l'interface avec les résultats de recherche
-        generateCards(resultats);
-    
-        
     }
 
 
