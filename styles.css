@@ -99,6 +99,10 @@ body {
 
 /* Dropdowns */
 
+.arrow {
+    margin-left: 70px;
+}
+
 .big-container {
     display: flex;
     flex-direction: row;
@@ -166,7 +170,10 @@ body {
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {
     display: block;
-    border-radius: ;
+  }
+
+  .dropdown:hover .arrow {
+    transform: rotate(180deg);
   }
   
   /* Style the dropdown links */
@@ -183,6 +190,15 @@ body {
     margin: 10px;
     border: 1px solid var(--Light-Grey, #C6C6C6);
     width: 80%; /* Slightly less than container for aesthetics */
+    position: relative;
+  }
+
+  .loupe-dropdown {
+    position: absolute;
+    fill: blue;
+    stroke: #FFD15B;
+    top: 15px;
+    left: 159px
   }
 
   .dropdown-item {

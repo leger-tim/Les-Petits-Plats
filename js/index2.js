@@ -51,48 +51,8 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error('Error loading the recipes:', error));
 
-    // // Function to populate dropdowns
-    // function populateDropdowns(recipes) {
-    //     const ingredientsSet = new Set();
-    //     const appliancesSet = new Set();
-    //     const utensilsSet = new Set();
-
-    //     recipes.forEach(recipe => {
-    //         recipe.ingredients.forEach(item => ingredientsSet.add(item.ingredient));
-    //         appliancesSet.add(recipe.appliance);
-    //         recipe.ustensils.forEach(item => utensilsSet.add(item));
-    //     });
-
-    //     const ingredients = [...ingredientsSet];
-    //     const appliances = [...appliancesSet];
-    //     const utensils = [...utensilsSet];
-
-    //     const addItemsToDropdown = (selector, items) => {
-    //         const dropdown = document.querySelector(selector);
-    //         items.forEach(item => {
-    //             const element = document.createElement('button');
-    //             element.type = 'button';
-    //             element.className = 'dropdown-item'; // Add class for styling
-    //             element.textContent = item;
-    //             element.addEventListener('click', function() {
-    //                 addTag(item); // Ajouter un tag au clic sur un élément
-    //                 filterRecipesByTags(); // Filtrer les recettes en fonction des tags sélectionnés
-    //                 console.log(item + ' selected');
-    //             });
-    //             dropdown.appendChild(element);
-    //         });
-    //     };
-
-    //     // Clear existing dropdown items before adding new ones
-    // document.querySelectorAll('.dropdown-content').forEach(dropdown => {
-    //     dropdown.innerHTML = '';
-    // });
-
-    //     // Populate dropdowns
-    //     addItemsToDropdown('.dropdown-content[data-dropdown="ingredients"]', ingredients);
-    //     addItemsToDropdown('.dropdown-content[data-dropdown="appliances"]', appliances);
-    //     addItemsToDropdown('.dropdown-content[data-dropdown="ustensils"]', utensils);
-    // }
+     // Function to populate dropdowns
+    
     function populateDropdowns(filteredRecipes) {
         // Sets to hold the unique items
         const ingredientsSet = new Set();
@@ -106,49 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
             recipe.ustensils.forEach(item => utensilsSet.add(item));
         });
     
-        // Function to add items to a specific dropdown
-        // const addItemsToDropdown = (selector, items) => {
-        //     const dropdown = document.querySelector(selector);
-        //     dropdown.innerHTML = ''; // Clear the dropdown before adding new items
-        //     items.forEach(item => {
-        //         const element = document.createElement('button');
-        //         element.type = 'button';
-        //         element.className = 'dropdown-item';
-        //         element.textContent = item;
-        //         element.addEventListener('click', function() {
-        //             addTag(item);
-        //             filterRecipesByTags(); // This will need to filter based on the new tags
-        //             console.log(item + ' selected');
-        //         });
-        //         dropdown.appendChild(element);
-        //     });
-        // };
-        
-        // Function to add items to a specific dropdown
-        // const addItemsToDropdown = (selector, items) => {
-        //     const dropdown = document.querySelector(selector);
-        //     // Get the existing search input element
-        //     const searchInput = dropdown.querySelector('.input-dropdowns');
-            
-        //     // Clear previous items, preserving the search input
-        //     while (dropdown.firstChild && dropdown.firstChild !== searchInput) {
-        //         dropdown.removeChild(dropdown.firstChild);
-        //     }
-
-        //     // Append new items after the search input
-        //     items.forEach(item => {
-        //         const element = document.createElement('button');
-        //         element.type = 'button';
-        //         element.className = 'dropdown-item';
-        //         element.textContent = item;
-        //         element.addEventListener('click', function() {
-        //             addTag(item);
-        //             filterRecipesByTags(); // This will need to filter based on the new tags
-        //             console.log(item + ' selected');
-        //         });
-        //         dropdown.appendChild(element);
-        //     });
-        // };
+    
 
         // Function to add items to a specific dropdown, without removing the search bar
 const addItemsToDropdown = (selector, items) => {
@@ -248,7 +166,6 @@ const addItemsToDropdown = (selector, items) => {
         
     }
 
-    
 
     // Filter Dropdowns
 
@@ -284,7 +201,7 @@ const addItemsToDropdown = (selector, items) => {
     });
 
     // Function to filter dropdown items based on search input
-function filterDropdownItems(event) {
+    function filterDropdownItems(event) {
     const input = event.target;
     const filter = input.value.toLowerCase();
     const dropdown = input.closest('.dropdown-content');
